@@ -46,88 +46,108 @@ function passwordCheck(){
 	var regLower=/^ (?=.*[a-z])$/;
 	var regUpper= /^(?=.*[A-Z])$/;
 	var regSpec=/^(?=.*[!@#$%^&*])$/;
-	$("#p203").hide();
+	$("#p203").hide();$("#p206").hide();$("#p207").hide();$("#p208").hide();$("#p209").hide();
+	console.log(regDigit.test($("#psw11").val()));
+	console.log(regLower.test($("#psw11").val()));
+	console.log(regSpec.test($("#psw11").val()));
+	console.log(regularExpression.test($("#psw11").val()));
+	console.log(regUpper.test($("#psw11").val()) );
 	
-//	if(!(((($("#psw11").val()).length)>=8) && regDigit.test($("#psw11").val()) && regLower.test($("#psw11").val()) && regUpper.test($("#psw11").val()) 
-//			 && regSpec.test($("#psw11").val()) && regularExpression.test($("#psw11").val())  )){
+	if(($("#psw11").val()).length>=8){
 		
-//		console.log(regDigit.test($("#psw11").val()));
-//		console.log(regLower.test($("#psw11").val()));
-//		console.log(regSpec.test($("#psw11").val()));
-//		console.log(regularExpression.test($("#psw11").val()));
-//		console.log(regUpper.test($("#psw11").val()) );
-		
-		if(!((($("#psw11").val()).length)>=8)){
-		$("#p203").show();
-		$('#signbtn21').attr('disabled', 'disabled');
-		return false;
+			
+			if((regDigit.test($("#psw11").val()))){
+				
+				if((regLower.test($("#psw11").val()))){
+					
+					if((regUpper.test($("#psw11").val()))){
+						if((regSpec.test($("#psw11").val()))){
+							$("#p203").hide();
+							$("#p206").hide();
+							$("#p207").hide();
+							$("#p208").hide();
+							$("#p209").hide();
+							$('#signbtn21').removeAttr('disabled');
+							return true;
+						}
+						else{
+							
+							$("#p209").show();
+							$('#signbtn21').attr('disabled', 'disabled');
+							return false;
+						}
+					}else{
+						$("#p208").show();
+						$('#signbtn21').attr('disabled', 'disabled');
+						return false;
+						
+					}
+				}
+				else{
+					$("#p207").show();
+					$('#signbtn21').attr('disabled', 'disabled');
+					return false;
+				}
+				
+			}
+			else{
+				$("#p206").show();
+				$('#signbtn21').attr('disabled', 'disabled');
+				return false;
+			}
+			
+		}else{
+			$("#p203").show();
+			$('#signbtn21').attr('disabled', 'disabled');
+			return false;
 		}
-//		
-//		else if(!(regDigit.test($("#psw11").val()))){
-//			$("#p206").show();
-//			$('#signbtn21').attr('disabled', 'disabled');
-//			return false;
-//		}
-//		else if(!(regLower.test($("#psw11").val()))){
-//			$("#p207").show();
-//			$('#signbtn21').attr('disabled', 'disabled');
-//			return false;
-//		}
-//		else if(!(regUpper.test($("#psw11").val()))){
-//			$("#p208").show();
-//			$('#signbtn21').attr('disabled', 'disabled');
-//			return false;
-//		}
-//		else if(!(regSpec.test($("#psw11").val()))){
-//			$("#p209").show();
-//			$('#signbtn21').attr('disabled', 'disabled');
-//			return false;
-//		}
-//		
 		
-		
-		
-//	}
-	else{
-		$("#p203").hide();
-		$("#p206").hide();
-		$("#p207").hide();
-		$("#p208").hide();
-		$("#p209").hide();
-		$('#signbtn21').removeAttr('disabled');
-		return true;
-		
-	/*	/^[^6-9]\d{9}$/" +
-		"if(email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/))
-		
-		var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-		 (/^
-			        (?=.*\d)                //should contain at least one digit
-			        (?=.*[a-z])             //should contain at least one lower case
-			        (?=.*[A-Z])             //should contain at least one upper case
-			        [a-zA-Z0-9]{8,} 
+//		if(!(((($("#psw11").val()).length)>=8) && regDigit.test($("#psw11").val()) && regLower.test($("#psw11").val()) && regUpper.test($("#psw11").val()) 
+//				 && regSpec.test($("#psw11").val()) && regularExpression.test($("#psw11").val())  )){
+			
+			console.log(regDigit.test($("#psw11").val()));
+			console.log(regLower.test($("#psw11").val()));
+			console.log(regSpec.test($("#psw11").val()));
+			console.log(regularExpression.test($("#psw11").val()));
+			console.log(regUpper.test($("#psw11").val()) );
+			
 
-		function validatePassword() {
-		    var p = document.getElementById('newPassword').value,
-		        errors = [];
-		    if (p.length < 8) {
-		        errors.push("Your password must be at least 8 characters"); 
-		    }
-		    if (p.search(/[a-z]/i) < 0) {
-		        errors.push("Your password must contain at least one letter.");
-		    }
-		    if (p.search(/[0-9]/) < 0) {
-		        errors.push("Your password must contain at least one digit."); 
-		    }
-		    if (errors.length > 0) {
-		        alert(errors.join("\n"));
-		        return false;
-		    }
-		    return true;
-		}*/
+			
+			
+
+		/*	/^[^6-9]\d{9}$/" +
+			"if(email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/))
+			
+			var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+			 (/^
+				        (?=.*\d)                //should contain at least one digit
+				        (?=.*[a-z])             //should contain at least one lower case
+				        (?=.*[A-Z])             //should contain at least one upper case
+				        [a-zA-Z0-9]{8,} 
+
+			function validatePassword() {
+			    var p = document.getElementById('newPassword').value,
+			        errors = [];
+			    if (p.length < 8) {
+			        errors.push("Your password must be at least 8 characters"); 
+			    }
+			    if (p.search(/[a-z]/i) < 0) {
+			        errors.push("Your password must contain at least one letter.");
+			    }
+			    if (p.search(/[0-9]/) < 0) {
+			        errors.push("Your password must contain at least one digit."); 
+			    }
+			    if (errors.length > 0) {
+			        alert(errors.join("\n"));
+			        return false;
+			    }
+			    return true;
+			}*/
+			
+		}	
 		
-	}	
-}
+
+
 
 function passwordReCheck(){
 	$("#p204").hide();
