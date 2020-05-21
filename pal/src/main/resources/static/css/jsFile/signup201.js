@@ -1,11 +1,16 @@
-
-
-
-function nameFilter(){
+function nameValidate(){
 	$("#p201").hide();
+	$("#p202").hide();
+	$("#p204").hide();
+	$("#p203").hide();$("#p206").hide();$("#p207").hide();$("#p208").hide();$("#p209").hide();
+	
+	
+	// regex for name
 	nameFilter1= /^([A-Za-z]*)+$/;
 	name=$('#uname11').val();
-	if((name.length>1 &&(nameFilter1).test(name))){
+	
+	
+	if((name.length>6 &&(nameFilter1).test(name))){
 		
 		$("#p201").hide();
 		$('#signbtn21').removeAttr('disabled');
@@ -14,9 +19,9 @@ function nameFilter(){
 	else {
 		$("#p201").show();
 		$('#signbtn21').attr('disabled', 'disabled');
-		
 		return false
 	}
+
 }
 
 
@@ -24,28 +29,27 @@ function emailFilter(){
 	$("#p202").hide();
 	emailFilter2=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	emailFilter1 = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,6})+$/;
-	
-	if(!((emailFilter1).test($("#email11").val()) && (emailFilter2).test($("#email11").val()))){
-		
-		$("#p202").show();
-		$('#signbtn21').attr('disabled', 'disabled');
-		return false;
-	}
-	else{
+	//email-
+	if(((emailFilter1).test($("#email11").val()) && (emailFilter2).test($("#email11").val()))){
 		$("#p202").hide();
 		$('#signbtn21').removeAttr('disabled');
-		return true;
-	} 
+		return true
+	}
+	else{
+			$("#p202").show();
+			$('#signbtn21').attr('disabled', 'disabled');
+			return false;
+		}	
 }
 
 
 function passwordCheck(){
 	
 	var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-	var regDigit=/^(?=.*[0-9])$/ ;
-	var regLower=/^ (?=.*[a-z])$/;
-	var regUpper= /^(?=.*[A-Z])$/;
-	var regSpec=/^(?=.*[!@#$%^&*])$/;
+	var regDigit=/^(?=.*[0-9]){1,}/ ;
+	var regLower=/^(?=.*[a-z])/;
+	var regUpper= /^(?=.*[A-Z])/;
+	var regSpec=/^(?=.*[!@#$%^&*])/;
 	$("#p203").hide();$("#p206").hide();$("#p207").hide();$("#p208").hide();$("#p209").hide();
 	console.log(regDigit.test($("#psw11").val()));
 	console.log(regLower.test($("#psw11").val()));
@@ -76,7 +80,8 @@ function passwordCheck(){
 							$('#signbtn21').attr('disabled', 'disabled');
 							return false;
 						}
-					}else{
+					}
+					else{
 						$("#p208").show();
 						$('#signbtn21').attr('disabled', 'disabled');
 						return false;
@@ -104,15 +109,6 @@ function passwordCheck(){
 		
 //		if(!(((($("#psw11").val()).length)>=8) && regDigit.test($("#psw11").val()) && regLower.test($("#psw11").val()) && regUpper.test($("#psw11").val()) 
 //				 && regSpec.test($("#psw11").val()) && regularExpression.test($("#psw11").val())  )){
-			
-			console.log(regDigit.test($("#psw11").val()));
-			console.log(regLower.test($("#psw11").val()));
-			console.log(regSpec.test($("#psw11").val()));
-			console.log(regularExpression.test($("#psw11").val()));
-			console.log(regUpper.test($("#psw11").val()) );
-			
-
-			
 			
 
 		/*	/^[^6-9]\d{9}$/" +
@@ -143,25 +139,101 @@ function passwordCheck(){
 			    }
 			    return true;
 			}*/
-			
+				
 		}	
 		
 
+function dobCheck(){
+	console.log($("#dob").val())
+	var dateformat = /^(\d{4})[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/;   // (0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+	
+	  if(dateformat.test($("#dob").val())){
+		  
+		  var datearr=$("#dob").val().split("-");
+//		  var CDate = new Date($("#dob").val());
+//		  $("#dob").val(CDate);
+		  console.log($(typeof($("#dob").val())))
+		  var dd = parseInt(datearr[2]);
+		  var mm  = parseInt(datearr[1]);
+		  var yy = parseInt(datearr[0]);
+		  
+		  if(mm==1 || mm==3 || mm==5 ||mm==7 || mm==8 || mm==10 || mm==12){
+			  if(dd<=31){
+					$("#p210").hide();
+					$('#signbtn21').removeAttr('disabled');
+					return true;			
+			  }
+			  else{
+				  $("#p210").show();
+					$('#signbtn21').attr('disabled', 'disabled');
+					return false
+			  }
+		  }
+		  else if(mm==4 || mm==6 || mm==9 ||mm==11 ){
+			  if(dd<=30){
+					$("#p210").hide();
+					$('#signbtn21').removeAttr('disabled');
+					return true;			
+			  }
+			  else{
+				  $("#p210").show();
+					$('#signbtn21').attr('disabled', 'disabled');
+					return false;
+			  }
+		  }
+		  else if(mm==2){
+			   if((yy % 4 ==0 || yy % 100==0) ){
+				   if(dd<=29){
+					   $("#p210").hide();
+						$('#signbtn21').removeAttr('disabled');
+						return true;
+				   }
+				   else{
+					   $("#p210").show();
+						$('#signbtn21').attr('disabled', 'disabled');
+						return false;
+				   }
+			   }
+			   else{
+				   if(dd<=28){
+					   
+					   $("#p210").hide();
+						$('#signbtn21').removeAttr('disabled');
+						return true;
+				   }else{
+					   
+					   $("#p210").show();
+						$('#signbtn21').attr('disabled', 'disabled');
+						return false;
+				   }
+			   }
+			  
+		  }
+		  
+	  }else{
+		  $("#p210").show();
+			$('#signbtn21').attr('disabled', 'disabled');
+			return false;
+	  }
+	
+}
 
 
 function passwordReCheck(){
 	$("#p204").hide();
 	if(($("#psw11").val()).length>=8){
-	if(!(($("#psw11").val())===($("#psw-repeat11").val()))){
-		console.log("not an matched")
-		$("#p204").show();
-		$('#signbtn21').attr('disabled', 'disabled');
-		return false;
-	}
-	else{
+	if((($("#psw11").val())===($("#psw-repeat11").val()))){
+		
 		$("#p204").hide();
 		$('#signbtn21').removeAttr('disabled');
 		return true;
+	}
+	else{
+		
+		$("#p204").show();
+		$('#signbtn21').attr('disabled', 'disabled');
+		return false;
+		
 	}	
 	}
 	else{
@@ -174,95 +246,82 @@ function passwordReCheck(){
 function mobileCheck(){
 	mobFilter= /^([0-9]{10})+$/;
 	$("#p205").hide();
-	if(!(($("#mob11").val()).length==10 )){
-		$("#p205").show();
-		$('#signbtn21').attr('disabled', 'disabled');
-		return false;
-	}else{
+	if((($("#mob11").val()).length==10 ) && (mobFilter.test($("#mob11").val()))){
+		
 		$("#p205").hide();
 		$('#signbtn21').removeAttr('disabled');
 		return true;
-	}
-}
-
-
-
-
-
-function form211(){
-	
-	console.log("form Submitted")
-
-	console.log($('#uname11').val() );
-	console.log($("#email11").val());
-	console.log($("#psw11").val());
-	console.log($("#psw-repeat11").val());
-	console.log($("#mob11").val());
-	console.log(nameFilter());	
-	var name2=nameFilter();
-	var email2=emailFilter();
-	var pass=passwordCheck();
-	var pass1=passwordReCheck();
-	var mob2=mobileCheck();
-	
-	console.log("name2 "+ name2)
-	console.log("email2 "+ email2)
-	console.log("pass "+ pass)
-	console.log("pass1 "+ pass1)
-	console.log("mob2 "+ mob2)	
-}
-
-
-
-$("#cpa-form").submit(function(event) {
-	
-	
-	    // stop the form from submitting the normal way and refreshing the page
-	event.preventDefault();
-	
-	var name2=nameFilter();
-	var email2=emailFilter();
-	var pass=passwordCheck();
-	var pass1=passwordReCheck();
-	var mob2=mobileCheck();
-	if(name2 && email2 && pass && pass1 && mob2)  {
-
-    // get the form data
-    // there are many ways to get this data using jQuery (you can use the class or id also)
-    var formData = {
-        'userName'              : $('#uname11').val(),
-        'userEmail'             : $("#email11").val(),
-        'password'    			: $("#psw11").val(),
-        'passwordRecheck'		: $("#psw-repeat11").val(),
-        'moblieNo'				: $("#mob11").val()
-    };
-
-    // process the form
-    $.ajax({
-        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-        url         : 'http://localhost:8080/pal/user/addUser'+formData , // the url where we want to POST
-        data        : formData, // our data object
-        dataType    : 'json', // what type of data do we expect back from the server
-                    encode          : true
-    })
-        // using the done promise callback
-        .success(function(data) {
-
-            // log data to the console so we can see
-            console.log(data); 
-
-            // here we will handle errors and validation messages
-        });
-   /* .error(function(data){
-    	console.log(data)
-    });*/
 	}else{
-		event.preventDefault();
+		
+		$("#p205").show();
+		$('#signbtn21').attr('disabled', 'disabled');
+		return false;
+		
+		
 	}
+}
+
+
+function validateForm(){
+		
+	var name2=nameValidate();
+	var email2=emailFilter();
+	var pass=passwordCheck();
+	var pass1=passwordReCheck();
+	var mob2=mobileCheck();
+	var dob=dobCheck();
 	
+	if(name2 && email2 && pass && pass1 && dob && mob2){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+
+
+
+$(function() {
+	$('#cpa-form').bind('submit', function() {
+		$("#cpa-form").click(function(event){
+			  event.preventDefault();
+			});
+		if(validateForm){
+			var formData = {
+			        'userName'              : $('#uname11').val(),
+			        'userEmail'             : $("#email11").val(),
+			        'UserPassword'    		: $("#psw11").val(),
+			        'userPassCheck'			: $("#psw-repeat11").val(),
+			        'mobileNo'				: $("#mob11").val(),
+			        'dateOfBirth'			: $("#dob").val()
+			        
+			    };
+			var data1=JSON.stringify(formData);
+			console.log(data1)
+			$.ajax({
+		        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+		        url         : 'http://localhost:8080/pal/user/addNewUser', // the url where we want to POST
+		        data        : data1, // our data object
+//		        dataType    : 'text', // what type of data do we expect back from the server
+//		        contentType : "application/json; charset=utf-8",
+//		        encode      : true,
+		        cache		: false,
+		        success : function(data) {
+		        	
+		        	$('#modalForm').modal('show'); 
+		            
+		        },
+		        error : function(data) {
+		        	$('#modalForm2').modal('show'); 
+		        }
+		    })
+		    
+			
+		}
+		
+	});
 });
-
-
 
 
 function cancel212(){

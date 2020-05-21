@@ -17,7 +17,7 @@
 input[type=text], input[type=password], input[type=number],[type=date] {
   width: 100%;
   padding: 8px;
-  margin: 5px 0 11px 0;
+  margin: 5px 0 11px 0px;
   display: inline-block;
   border: none;
   background: #f1f1f1;
@@ -26,8 +26,9 @@ input[type=text], input[type=password], input[type=number],[type=date] {
 
 
 input[type=text]:focus, input[type=password]:focus,input[type=number]:focus,[type=date]:focus {
-  background-color: #4ddd;
+  background-color: white;
   outline: none;
+  color:black;
    transform:scale(1.1,1.1);
 }
 
@@ -102,8 +103,8 @@ button:hover {
 /* Add padding to container elements */
 .container {
   padding: 15px 15px;
-  margin: 5px 0 22px 0;
-  width:575px;
+  margin: 5px 4px 22px 4px;
+  width:auto;
 }
 
 .container-fluid{
@@ -147,10 +148,10 @@ button:hover {
  }
  
  .sdiv{
- background-color:rgb(210,255,255,0.4);
+ background-color:rgba(210,215,255,0.4);
  opacity:0.9;
  height:100%;
- width:650px;
+ width:auto;
  margin: 50px 5px 5px 20px;
  border-radius: 25px;
   
@@ -171,43 +172,69 @@ button:hover {
 <body>
 <div id="sf200" class="container-fluid img img-responsive" >
 
+<div class="row">
+            <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8 whiteborder ">
 
 <div id="sf201" class="sdiv">
 
   
-  <form class="forms" id="cpa-form" action="/pal/user/addUser" method="post">
-    <div class="container">
+  <form class="forms" role="form" id="cpa-form"  onsubmit="return validateForm()" method="post">
+  <div class="container">
+    <div class="form-group">
       <h1 style="text-align:center; color:black;font-style: bold;"> Register </h1>
       
-      <hr>
-      <label for="uname11" ><b>Name</b></label>
-      <input type="text" id="uname11" placeholder="Enter Name" name="uname11"  required onkeyup="nameFilter();">
-      <p id="p201" style="color:red; display: none;" >Enter a valid username</p>
+      <br>
       
+      </div>
+      
+      
+      <div class="form-group has-success has-feedback">
+      <label class="control-label" for="uname11" ><b>First Name</b></label>
+      <input type="text" id="uname11" class="form-control" placeholder="Enter Name" name="uname11" title="Name should be more than 6 character" required onkeyup="nameValidate();">
+      <i id="gly-1" class="glyphicon glyphicon-ok form-control-feedback" ></i>
+      <span id="gly-2" class="glyphicon glyphicon-remove form-control-feedback"></span>
+     
+      <p id="p201" style="color:red; display: none;" >Enter a valid username</p>
+    <!--    <span id="gly-1" class="glyphicon glyphicon-ok form-control-feedback" ></span>
+      <span id="gly-2" class="glyphicon glyphicon-remove form-control-feedback"></span> -->
+      </div>
+      
+      <div class="form-group">
       <label for="email11"  ><b>Email</b></label>
-      <input type="text" id="email11" placeholder="Enter Email" name="email11" required onkeyup="emailFilter();">
+      <input type="text" id="email11" class="form-control" placeholder="Enter Email" name="email11" required onkeyup="emailFilter();">
        <p id="p202" style="color:red; display: none;" >Enter a valid email</p>
+		</div>
 
+	<div class="form-group">
       <label for="psw11"  ><b>Password</b></label>
-      <input type="password" id="psw11" placeholder="Enter Password" name="psw11" required onkeyup="passwordCheck();">
-       <p id="p203" style="color:red; display: none;">Your password length should be of 8 or more characters</p>
+      <input type="password" id="psw11" class="form-control" placeholder="Enter Password" name="psw11" required 
+      title="Password should contain a digit,lower case, upper case and special character" onkeyup="passwordCheck();">
+       <p id="p203" style="color:red; display: none;">Your password length should be of 8 or more characters <br/> <span> with a digit,lower case, upper case and special character</span></p>
 		<p id="p206" style="color:red; display: none;">Your password must contain at least one digit</p>
 		<p id="p207" style="color:red; display: none;">Your password must contain at least one Lower case</p>
 		<p id="p208" style="color:red; display: none;">Your password must contain at least one Upper case</p>
 		<p id="p209" style="color:red; display: none;">Your password must contain at least one Special character</p>	
+	</div>
 	
-	
+	<div class="form-group">
       <label for="psw-repeat11"  ><b>Confirm Password</b></label>
-      <input type="password" id="psw-repeat11" placeholder="Confirm Password" name="psw-repeat11" required onkeyup="passwordReCheck();">
+      <input type="password" id="psw-repeat11" class="form-control" placeholder="Confirm Password" name="psw-repeat11" required onkeyup="passwordReCheck();">
        <p id="p204" style="color:red; display: none;">Password not matched</p>
-       
+     </div>
+     
+
+  
+       <div class="form-group">
        <label for="dob">DOB:</label>
-       <input type="date" id="dob" placeholder="Date of birth" min="1900-01-01" max="2099-01-01" required="required"/>
+       <input type="date" id="dob" name="dob" class="form-control" placeholder="Date of birth" required="required" onchange="dobCheck()" / >
+      <p id="p210" style="color:red; display: none;">Enter a valid Date</p>
+      </div>	 
       
+      <div class="form-group">
       <label for="mob11"  id="mob1" ><b>Mobile No. </b></label>
-      <input type="number" id="mob11" maxlength="10"  placeholder="Enter Mobile Number" name="mob1" required onkeyup="mobileCheck();">
+      <input type="number" id="mob11" maxlength="10"  placeholder="Enter Mobile Number" class="form-control" name="mob1" required onkeyup="mobileCheck();">
        <p id="p205" style="color:red; display: none;" >Enter a valid mobile No.</p>
-      
+      </div>
   <!--    <label>
         <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
       </label>    --> 
@@ -228,6 +255,8 @@ button:hover {
     </div>
   </form>
   
+</div>
+</div>
 </div>
 </div>
 </body>
