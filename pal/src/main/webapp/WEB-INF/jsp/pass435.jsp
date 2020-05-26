@@ -6,8 +6,8 @@
       </script>
    </head>
    <body>
-     
-     <div class="modal fade" id="modalForm" role="dialog">
+     <button type="sbmit" value="submit" onsubmit="/logout">Logout</button>
+    <!--  --> <div class="modal fade" id="modalForm" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->

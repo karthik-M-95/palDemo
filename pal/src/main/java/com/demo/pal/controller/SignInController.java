@@ -22,7 +22,7 @@ import com.demo.pal.model.UserModel;
 @RequestMapping("/user")
 public class SignInController {
 
-	@ResponseBody
+	
 	@PostMapping(value= "/addUser1")
 	public  ResponseEntity<String> addUser1(@RequestBody UserModel user , Session session ){
 		
@@ -69,12 +69,13 @@ public class SignInController {
 		return "welcome";
 	}
 	
-	@PostMapping("/addNewUser")
-	public ResponseEntity<String> newUser(@RequestBody UserModel user) {
+	@ResponseBody
+	@PostMapping(value="/addNewUser", consumes="application/json", produces="application/json")
+	public ResponseEntity<UserModel> newUser(@RequestBody UserModel user) {
 		
 		HttpHeaders responseHeaders = new HttpHeaders();
 	    responseHeaders.set("Baeldung-Example-Header", "Value-ResponseEntityBuilderWithHttpHeaders");
-		
+	
 		System.out.println("Hello new user object");
 		System.out.println(user);
 		System.out.println(user.getUserName());
@@ -84,9 +85,9 @@ public class SignInController {
 		System.out.println(user.getMobileNo());
 		System.out.println(user.getDateOfBirth()); 
 		if(user.getUserName().equals("karthik")) {
-			 return new ResponseEntity<String>("Hello World", responseHeaders, HttpStatus.OK);
+			 return new ResponseEntity<UserModel>(user, responseHeaders, HttpStatus.OK);
 			}else {
-			return new ResponseEntity<String>("Hello World", HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<UserModel>(user, HttpStatus.BAD_REQUEST);
 		
 		}
 		

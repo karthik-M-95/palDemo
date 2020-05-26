@@ -2,7 +2,7 @@ package com.demo.pal.model;
 
 public class UserModel {
 
-//	public Integer UserId;
+	public Integer UserId;
 	public String userName;
 	public String UserEmail;
 	public String UserPassword;
@@ -10,25 +10,12 @@ public class UserModel {
 	public Long mobileNo;
 	public String dateOfBirth;
 	
-	
-	public Long getMobileNo() {
-		return mobileNo;
+	public Integer getUserId() {
+		return UserId;
 	}
-	public void setMobileNo(Long mobileNo) {
-		this.mobileNo = mobileNo;
+	public void setUserId(Integer userId) {
+		UserId = userId;
 	}
-	public String getDateOfBirth() {
-		return dateOfBirth;
-	}
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-//	public Integer getUserId() {
-//		return UserId;
-//	}
-//	public void setUserId(Integer userId) {
-//		UserId = userId;
-//	}
 	public String getUserName() {
 		return userName;
 	}
@@ -53,12 +40,21 @@ public class UserModel {
 	public void setUserPassCheck(String userPassCheck) {
 		this.userPassCheck = userPassCheck;
 	}
-	public Long getUserMobile() {
-		return userMobile;
+	public Long getMobileNo() {
+		return mobileNo;
 	}
-	public void setUserMobile(Long userMobile) {
-		this.userMobile = userMobile;
+	public void setMobileNo(Long mobileNo) {
+		this.mobileNo = mobileNo;
 	}
-	public Long userMobile;
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	
+	
+	
+	
 	
 }

@@ -9,7 +9,11 @@ function nameValidate(){
 	nameFilter1= /^([A-Za-z]*)+$/;
 	name=$('#uname11').val();
 	
-	
+	if(($("#uname11").val()).length==0){
+		$("#p201").hide();
+		$('#signbtn21').attr('disabled', 'disabled');
+		return false;
+	}
 	if((name.length>6 &&(nameFilter1).test(name))){
 		
 		$("#p201").hide();
@@ -30,7 +34,15 @@ function emailFilter(){
 	emailFilter2=/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	emailFilter1 = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,6})+$/;
 	//email-
-	if(((emailFilter1).test($("#email11").val()) && (emailFilter2).test($("#email11").val()))){
+	
+	
+	if(($("#email11").val()).length==0){
+		$("#p202").hide();
+		$('#signbtn21').attr('disabled', 'disabled');
+		return false;
+	}
+	
+	else if(((emailFilter1).test($("#email11").val()) && (emailFilter2).test($("#email11").val()))){
 		$("#p202").hide();
 		$('#signbtn21').removeAttr('disabled');
 		return true
@@ -57,7 +69,17 @@ function passwordCheck(){
 	console.log(regularExpression.test($("#psw11").val()));
 	console.log(regUpper.test($("#psw11").val()) );
 	
-	if(($("#psw11").val()).length>=8){
+	if(($("#psw11").val()).length==0){
+		$("#p203").hide();
+		$("#p206").hide();
+		$("#p207").hide();
+		$("#p208").hide();
+		$("#p209").hide();
+		$('#signbtn21').attr('disabled', 'disabled');
+		return false;
+	}
+	
+	else if(($("#psw11").val()).length>=8){
 		
 			
 			if((regDigit.test($("#psw11").val()))){
@@ -147,7 +169,8 @@ function dobCheck(){
 	console.log($("#dob").val())
 	var dateformat = /^(\d{4})[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/;   // (0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
 	
-	  if(dateformat.test($("#dob").val())){
+
+ if(dateformat.test($("#dob").val())){
 		  
 		  var datearr=$("#dob").val().split("-");
 //		  var CDate = new Date($("#dob").val());
@@ -220,8 +243,15 @@ function dobCheck(){
 
 
 function passwordReCheck(){
+	
 	$("#p204").hide();
-	if(($("#psw11").val()).length>=8){
+	
+	if(($("#psw11").val()).length==0){
+		$("#p204").hide();
+		$('#signbtn21').attr('disabled', 'disabled');
+		return false;
+	}
+	else if(($("#psw11").val()).length>=8){
 	if((($("#psw11").val())===($("#psw-repeat11").val()))){
 		
 		$("#p204").hide();
@@ -246,7 +276,13 @@ function passwordReCheck(){
 function mobileCheck(){
 	mobFilter= /^([0-9]{10})+$/;
 	$("#p205").hide();
-	if((($("#mob11").val()).length==10 ) && (mobFilter.test($("#mob11").val()))){
+	
+	if(($("#mob11").val()).length==0){
+		$("#p205").hide();
+		$('#signbtn21').attr('disabled', 'disabled');
+		return false;
+	}
+	else if((($("#mob11").val()).length==10 ) && (mobFilter.test($("#mob11").val()))){
 		
 		$("#p205").hide();
 		$('#signbtn21').removeAttr('disabled');
@@ -264,19 +300,20 @@ function mobileCheck(){
 
 function validateForm(){
 		
-	var name2=nameValidate();
-	var email2=emailFilter();
-	var pass=passwordCheck();
-	var pass1=passwordReCheck();
-	var mob2=mobileCheck();
-	var dob=dobCheck();
-	
-	if(name2 && email2 && pass && pass1 && dob && mob2){
-		return true;
-	}
-	else{
-		return false;
-	}
+//	var name2=nameValidate();
+//	var email2=emailFilter();
+//	var pass=passwordCheck();
+//	var pass1=passwordReCheck();
+//	var mob2=mobileCheck();
+//	var dob=dobCheck();
+//	
+//	if(name2 && email2 && pass && pass1 && dob && mob2){
+//		return true;
+//	}
+//	else{
+//		return false;
+//	}
+	return true;
 }
 
 
@@ -284,9 +321,7 @@ function validateForm(){
 
 $(function() {
 	$('#cpa-form').bind('submit', function() {
-		$("#cpa-form").click(function(event){
-			  event.preventDefault();
-			});
+			
 		if(validateForm){
 			var formData = {
 			        'userName'              : $('#uname11').val(),
@@ -303,8 +338,8 @@ $(function() {
 		        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
 		        url         : 'http://localhost:8080/pal/user/addNewUser', // the url where we want to POST
 		        data        : data1, // our data object
-//		        dataType    : 'text', // what type of data do we expect back from the server
-//		        contentType : "application/json; charset=utf-8",
+		        dataType    : 'json', // what type of data do we expect back from the server
+		        contentType : "application/json; charset=utf-8",
 //		        encode      : true,
 		        cache		: false,
 		        success : function(data) {
@@ -312,7 +347,7 @@ $(function() {
 		        	$('#modalForm').modal('show'); 
 		            
 		        },
-		        error : function(data) {
+		        error : function(request, status, error) {
 		        	$('#modalForm2').modal('show'); 
 		        }
 		    })
