@@ -1,15 +1,19 @@
 package com.demo.pal.model;
 
+import java.util.Date;
+
+import com.demo.pal.entity.UserEntity;
+
 public class UserModel {
 
-	public Integer UserId;
-	public String userName;
-	public String UserEmail;
-	public String UserPassword;
-	public String userPassCheck;
-	public Long mobileNo;
-	public String dateOfBirth;
-	
+	private Integer UserId;
+	private String userName;
+	private String UserEmail;
+	private String UserPassword;
+	private String userRole;
+	private Integer enable;
+	private String mobileNo;
+	private Date dateOfBirth;
 	public Integer getUserId() {
 		return UserId;
 	}
@@ -34,27 +38,35 @@ public class UserModel {
 	public void setUserPassword(String userPassword) {
 		UserPassword = userPassword;
 	}
-	public String getUserPassCheck() {
-		return userPassCheck;
+	public String getUserRole() {
+		return userRole;
 	}
-	public void setUserPassCheck(String userPassCheck) {
-		this.userPassCheck = userPassCheck;
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
 	}
-	public Long getMobileNo() {
+	public Integer getEnable() {
+		return enable;
+	}
+	public void setEnable(Integer enable) {
+		this.enable = enable;
+	}
+	public String getMobileNo() {
 		return mobileNo;
 	}
-	public void setMobileNo(Long mobileNo) {
+	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	
 	
 	
+	
+
 	
 	
 }

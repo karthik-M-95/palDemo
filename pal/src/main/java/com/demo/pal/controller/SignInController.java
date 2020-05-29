@@ -14,41 +14,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.demo.pal.model.UserModel;
+import com.demo.pal.service.SignInUser;
 
 @Controller
 @RequestMapping("/user")
 public class SignInController {
 
+	@Autowired
+	SignInUser userService;
 	
-	@PostMapping(value= "/addUser1")
-	public  ResponseEntity<String> addUser1(@RequestBody UserModel user , Session session ){
+	@GetMapping(value="/loginError")
+	public ResponseEntity<String> loginError(){
+		System.out.println("ur in loginError controller");
+		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		
-		HttpHeaders responseHeaders = new HttpHeaders();
-	    responseHeaders.set("Baeldung-Example-Header", 
-	      "Value-ResponseEntityBuilderWithHttpHeaders");
-	 
-	    System.out.println("Session "+ session.getSession()+ session);
-		
-		System.out.println("Hello got the user Object");
-		System.out.println(user);
-		System.out.println(user.getUserName());
-		System.out.println(user.getUserEmail());
-		System.out.println(user.getUserPassCheck());
-		System.out.println(user.getUserPassword());
-		System.out.println(user.getMobileNo());
-		System.out.println(user.getDateOfBirth()); 
-		
-		if(user.getUserName().equals("karthik")) {
-			 return new ResponseEntity<String>("Hello World", responseHeaders, HttpStatus.OK);
-			}else {
-			return new ResponseEntity<String>("Hello World", HttpStatus.NOT_ACCEPTABLE);
-		
-		}
-//		return ResponseEntity.ok();             ResponseEntity<String>
-
 	}
 	
 	@PostMapping("/addUser")
@@ -66,31 +49,31 @@ public class SignInController {
 		
 		
 		
-		return "welcome";
+		return "login";
 	}
 	
-	@ResponseBody
-	@PostMapping(value="/addNewUser", consumes="application/json", produces="application/json")
-	public ResponseEntity<UserModel> newUser(@RequestBody UserModel user) {
-		
-		HttpHeaders responseHeaders = new HttpHeaders();
-	    responseHeaders.set("Baeldung-Example-Header", "Value-ResponseEntityBuilderWithHttpHeaders");
 	
+	@PostMapping(value="/addNewUser", consumes="application/json")
+	public ResponseEntity<?> addnewUser(@RequestBody UserModel user) {
+		
+		Integer id= userService.addUser(user);
+//		Integer id= null;
 		System.out.println("Hello new user object");
 		System.out.println(user);
 		System.out.println(user.getUserName());
 		System.out.println(user.getUserEmail());
-		System.out.println(user.getUserPassCheck());
 		System.out.println(user.getUserPassword());
 		System.out.println(user.getMobileNo());
 		System.out.println(user.getDateOfBirth()); 
-		if(user.getUserName().equals("karthik")) {
-			 return new ResponseEntity<UserModel>(user, responseHeaders, HttpStatus.OK);
-			}else {
-			return new ResponseEntity<UserModel>(user, HttpStatus.BAD_REQUEST);
-		
-		}
-		
+//		
+//		Integer id= userService.addUser(user);
+		user.setUserId(id);
+		if(id!=null) {
+			 return new ResponseEntity<UserModel>(user, HttpStatus.OK);
+				}else {
+				return new ResponseEntity<String>("Some error", HttpStatus.BAD_REQUEST);
+				}
+//	
 	}
 	
 }

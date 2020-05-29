@@ -1,16 +1,13 @@
 package com.demo.pal.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,55 +16,61 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class LoginController {
 
-	
+	// for user login
 	@GetMapping(value="/Login")
 	public String Login() {
-		return "login";
+		
+		return "preFiles/loginpage";
 	}
-
+	
+	@GetMapping(value="/signin2")
+	public String SignIn() {
+		
+		return "preFiles/signInpage";
+	}
+	
+	// for user home
+	@GetMapping(value="/home")
+	public String home() {
+		return "preFiles/home";
+	}
+	
+// for logout
 	@GetMapping(value="/logout")
 	public String logout() {
 		SecurityContextHolder.getContext().setAuthentication(null);
-		return "login";
+		return "preFiles/home";
 	}
 	
+	// for Invalid Session
 	@GetMapping(value="/InvalidSession")
 	public String InvalidSession() {
 		
 		return "InvalidSession";
 	}
 
-	
-	@GetMapping(value="/loginError")
-	@ResponseBody
-	public ResponseEntity<String> LoginError() {
-		return new ResponseEntity<String>("login.jsp", HttpStatus.BAD_REQUEST);		
-	}
-	
-	@GetMapping(value="/signup")
-	public String SignIn() {
-		
-		return "signIn";
-	}
-	
-	
-	@GetMapping(value="/defsuc")
+
+	//login default
+	@GetMapping(value="/Home")
 	public String defaultLoginSuccess() {	
-		return "suc124";
+		return "logInFiles/suc124";
 	}
 	
+	//loginsuccessurl
 	@GetMapping(value="/LoginUser")
 	public String postLoginSuccess(@RequestParam("uname") String uname, @RequestParam("password") String password) {
 		System.out.println("we r in LoginUser");
-		return "fp";
+		return "preFiles/fp";
 	}
+
 	
+	// for access denied
 	@GetMapping(value="/accessDenied")
 	public String AccessDenied() {	
 		return "accessDenied";
 	}
 	
-	
+	// for forgot password
 	@GetMapping(value="/forgotPassword")
 	public String ResetPass() {
 		System.out.println("Password change");

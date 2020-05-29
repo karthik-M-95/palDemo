@@ -63,13 +63,14 @@ function passwordCheck(){
 	var regUpper= /^(?=.*[A-Z])/;
 	var regSpec=/^(?=.*[!@#$%^&*])/;
 	$("#p203").hide();$("#p206").hide();$("#p207").hide();$("#p208").hide();$("#p209").hide();
-	console.log(regDigit.test($("#psw11").val()));
-	console.log(regLower.test($("#psw11").val()));
-	console.log(regSpec.test($("#psw11").val()));
-	console.log(regularExpression.test($("#psw11").val()));
-	console.log(regUpper.test($("#psw11").val()) );
+//	console.log(regDigit.test($("#psw11").val()));
+//	console.log(regLower.test($("#psw11").val()));
+//	console.log(regSpec.test($("#psw11").val()));
+//	console.log(regularExpression.test($("#psw11").val()));
+//	console.log(regUpper.test($("#psw11").val()) );
 	
 	if(($("#psw11").val()).length==0){
+		$("#p210").hide();
 		$("#p203").hide();
 		$("#p206").hide();
 		$("#p207").hide();
@@ -88,13 +89,27 @@ function passwordCheck(){
 					
 					if((regUpper.test($("#psw11").val()))){
 						if((regSpec.test($("#psw11").val()))){
-							$("#p203").hide();
-							$("#p206").hide();
-							$("#p207").hide();
-							$("#p208").hide();
-							$("#p209").hide();
-							$('#signbtn21').removeAttr('disabled');
-							return true;
+							
+							if( (($("#psw11").val()).length>=8) && (($("#psw11").val()).length<=15)){
+								$("#p203").hide();
+								$("#p206").hide();
+								$("#p207").hide();
+								$("#p208").hide();
+								$("#p209").hide();
+								$("#p210").hide();
+								$('#signbtn21').removeAttr('disabled');
+								return true;
+								
+								
+							}
+							else{
+								$("#p210").show();
+								$('#signbtn21').attr('disabled', 'disabled');
+								return false;
+								
+							}
+		
+							
 						}
 						else{
 							
@@ -166,16 +181,21 @@ function passwordCheck(){
 		
 
 function dobCheck(){
-	console.log($("#dob").val())
+//	console.log($("#dob").val())
 	var dateformat = /^(\d{4})[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/;   // (0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
 	
 
  if(dateformat.test($("#dob").val())){
-		  
-		  var datearr=$("#dob").val().split("-");
-//		  var CDate = new Date($("#dob").val());
-//		  $("#dob").val(CDate);
-		  console.log($(typeof($("#dob").val())))
+		  var datearr;
+		  var date1=$("#dob").val().split("-");
+		  var date2=$("#dob").val().split("/");
+
+		if (date.length > 0) {
+			datearr = date1;
+		} else {
+			datearr = date2;
+		}
+//		  console.log($(typeof($("#dob").val())))
 		  var dd = parseInt(datearr[2]);
 		  var mm  = parseInt(datearr[1]);
 		  var yy = parseInt(datearr[0]);
@@ -317,48 +337,55 @@ function validateForm(){
 }
 
 
-
+function openModal(){
+	setTimeout(function() {
+        window.location.reload();
+   },100)
+}
 
 $(function() {
 	$('#cpa-form').bind('submit', function() {
 			
+
+//function register1045(){
 		if(validateForm){
+			event.preventDefault();
 			var formData = {
 			        'userName'              : $('#uname11').val(),
 			        'userEmail'             : $("#email11").val(),
-			        'UserPassword'    		: $("#psw11").val(),
-			        'userPassCheck'			: $("#psw-repeat11").val(),
+			        'userPassword'    		: $("#psw11").val(),
 			        'mobileNo'				: $("#mob11").val(),
 			        'dateOfBirth'			: $("#dob").val()
 			        
 			    };
 			var data1=JSON.stringify(formData);
-			console.log(data1)
 			$.ajax({
 		        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-		        url         : 'http://localhost:8080/pal/user/addNewUser', // the url where we want to POST
+		        url         : 'user/addNewUser', // the url where we want to POST
 		        data        : data1, // our data object
 		        dataType    : 'json', // what type of data do we expect back from the server
 		        contentType : "application/json; charset=utf-8",
 //		        encode      : true,
 		        cache		: false,
 		        success : function(data) {
+		        	var uname=data.userName;
 		        	
-		        	$('#modalForm').modal('show'); 
+		        	$('#myModal').modal('show');
+		            return false;
+		        	
 		            
 		        },
 		        error : function(request, status, error) {
-		        	$('#modalForm2').modal('show'); 
+//		        	$('#modalForm2').modal('show'); 
+		        	console.log("failure");
+		        	
 		        }
 		    })
 		    
 			
-		}
+//		}
+}
 		
 	});
 });
 
-
-function cancel212(){
-	history.back();
-}
