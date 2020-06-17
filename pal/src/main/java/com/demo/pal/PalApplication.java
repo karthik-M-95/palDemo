@@ -12,9 +12,13 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
-@SpringBootApplication()
+@SpringBootApplication
+@PropertySource(value = {"classpath:configuration.properties"})
+@EnableAspectJAutoProxy // To enable AspectJ annotation support for AOP implementation
 @ComponentScan(basePackages = "com.demo.pal")
 public class PalApplication {
 

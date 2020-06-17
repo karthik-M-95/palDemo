@@ -14,7 +14,7 @@ function nameValidate(){
 		$('#signbtn21').attr('disabled', 'disabled');
 		return false;
 	}
-	if((name.length>6 &&(nameFilter1).test(name))){
+	if((name.length>2 &&(nameFilter1).test(name))){
 		
 		$("#p201").hide();
 		$('#signbtn21').removeAttr('disabled');
@@ -70,7 +70,7 @@ function passwordCheck(){
 //	console.log(regUpper.test($("#psw11").val()) );
 	
 	if(($("#psw11").val()).length==0){
-		$("#p210").hide();
+		$("#p211").hide();
 		$("#p203").hide();
 		$("#p206").hide();
 		$("#p207").hide();
@@ -96,14 +96,14 @@ function passwordCheck(){
 								$("#p207").hide();
 								$("#p208").hide();
 								$("#p209").hide();
-								$("#p210").hide();
+								$("#p211").hide();
 								$('#signbtn21').removeAttr('disabled');
 								return true;
 								
 								
 							}
 							else{
-								$("#p210").show();
+								$("#p211").show();
 								$('#signbtn21').attr('disabled', 'disabled');
 								return false;
 								
@@ -190,7 +190,7 @@ function dobCheck(){
 		  var date1=$("#dob").val().split("-");
 		  var date2=$("#dob").val().split("/");
 
-		if (date.length > 0) {
+		if (date1.length > 0) {
 			datearr = date1;
 		} else {
 			datearr = date2;

@@ -1,5 +1,7 @@
 package com.demo.pal.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -18,8 +21,8 @@ public class LoginController {
 
 	// for user login
 	@GetMapping(value="/Login")
-	public String Login() {
-		
+	public String Login(Model model) {
+//		return new ModelAndView("preFiles/loginpage", "command", new UserModel());
 		return "preFiles/loginpage";
 	}
 	
@@ -52,13 +55,15 @@ public class LoginController {
 
 	//login default
 	@GetMapping(value="/Home")
-	public String defaultLoginSuccess() {	
+	public String defaultLoginSuccess() {
+		
 		return "logInFiles/suc124";
 	}
 	
 	//loginsuccessurl
 	@GetMapping(value="/LoginUser")
 	public String postLoginSuccess(@RequestParam("uname") String uname, @RequestParam("password") String password) {
+		
 		System.out.println("we r in LoginUser");
 		return "preFiles/fp";
 	}

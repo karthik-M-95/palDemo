@@ -3,11 +3,18 @@ package com.demo.pal.model;
 import java.util.Date;
 
 import com.demo.pal.entity.UserEntity;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.Id;
 
 public class UserModel {
 
+	
 	private Integer UserId;
 	private String userName;
+	
+    @Id
+    @NotEmpty(message = "UserId must not be blank.")
 	private String UserEmail;
 	private String UserPassword;
 	private String userRole;

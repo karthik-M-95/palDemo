@@ -2,6 +2,8 @@ package com.demo.pal.controller;
 
 import java.util.Date;
 
+import javax.validation.Valid;
+
 import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -29,13 +31,13 @@ public class SignInController {
 	
 	@GetMapping(value="/loginError")
 	public ResponseEntity<String> loginError(){
-		System.out.println("ur in loginError controller");
+				System.out.println("ur in loginError controller");
 		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		
 	}
 	
 	@PostMapping("/addUser")
-	public String addUser(@RequestParam("uname11") String username, @RequestParam("email11") String userEmail, @RequestParam("psw11") String userPassword,
+	public String addUser(@Valid @RequestParam("uname11") String username, @RequestParam("email11") String userEmail, @RequestParam("psw11") String userPassword,
 			@RequestParam("psw-repeat11") String passCheck,@RequestParam("dob") String userdob, @RequestParam("mob1") Long mobNo) {
 		
 		RestTemplate restTemplate= new RestTemplate(); 
@@ -50,6 +52,14 @@ public class SignInController {
 		
 		
 		return "login";
+	}
+	
+	@GetMapping(value="/getUser", produces="application/json")
+	public UserModel getUser() {
+		
+		
+		return null;
+//		userService.find
 	}
 	
 	

@@ -33,13 +33,13 @@ function userId(){
 	emailFilter1 = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,6})+$/;
 	// email-
 	
-	if(($("#uname").val()).length==0){
+	if(($("#username").val()).length==0){
 		$("#p101").hide();
 		$('#p102').attr('disabled', 'disabled');
 		return false;
 	}
 	
-	else if(((emailFilter1).test($("#uname").val()) && (emailFilter2).test($("#uname").val()))){
+	else if(((emailFilter1).test($("#username").val()) && (emailFilter2).test($("#username").val()))){
 		$("#p101").hide();
 		$('#p102').removeAttr('disabled');
 		return true
@@ -108,7 +108,7 @@ $(function() {
 			rem="off";
 		}
 		data1={ 
-				uname		:$("#uname").val(),
+				username	:$("#username").val(),
 				password	:$("#password").val(),
 				rememberMe  :rem	
 		}

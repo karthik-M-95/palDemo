@@ -9,36 +9,38 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.demo.pal.model.UserModel;
 
 @Entity
 @Table(schema="pal_demo1", name="user_table")
-@SequenceGenerator(name="seq", initialValue=1, allocationSize=100)
+@SequenceGenerator(name="seq", initialValue=100003, allocationSize=1)
 public class UserEntity {
 //Generate the Id 
 	
-	
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")	
 	@Id
-	@Column(name="user_id")
+	@Column(name="user_id",unique = true,nullable=false)
 	private Integer UserId;
 	
-	@Column(name="user_name")
+	@Column(name="user_name", nullable=false)
 	private String userName;
 	
-	@Column(name="user_email")
+	@Column(name="user_email",nullable=false)
 	private String userEmail;
-	@Column(name="user_password")
+	@Column(name="user_password",nullable=false)
 	private String UserPassword;
-	@Column(name="user_mobile")
+	@Column(name="user_mobile",nullable=false)
 	private String userMobile;
-	@Column(name="user_dob")
+	@Column(name="user_dob",nullable=false)
 	private Date userDOB;
 	@Column(name="user_role")
 	private String user_role;
 
-	@Column(name="enalbe")
+	@Column(name="enable")
 	private Integer enable;
 
 	public Integer getUserId() {
